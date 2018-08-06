@@ -29,6 +29,18 @@ router.post('/signup', function(req, res, next) {
   });
 });
 
+router.post('/dupemail', function(req, res, next) {
+  User.findByEmail(req.body.email, function (err,rows) {
+    if(err) throw err;
+    console.log(rows);
+    if(rows.length > 0){
+      res.json({ status:true, msg:'Duplicated email!!'});
+    }else {
+      res.json({status:false});
+    }
+  });
+});
+
 router.get('/signin', function(req, res, next) {
   res.render('commons/sign-in', { title: 'Signin' });
 });
