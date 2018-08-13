@@ -38,6 +38,16 @@ app.use(function(req,res,next){
   next();
 });
 app.use('/', indexRouter);
+
+app.use(function(req,res,next){
+  if(req.session.user){
+    next();
+  }else {
+    req.flash("warning", "Authorization failed! Please login");
+    req.flash('forward', req.path);
+    res.redirect('/signin');
+  }
+});
 app.use('/admin', admin);
 app.use('/members', members);
 
