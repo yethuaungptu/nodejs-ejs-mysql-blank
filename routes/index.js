@@ -58,7 +58,12 @@ router.post('/signin', function(req, res, next) {
       console.log(req.body.rememberme);
       if(req.body.rememberme) res.cookie('email',users[0].email, { maxAge: 86400 * 7});
       else res.cookie('email','',{maxAge: 0});
-      res.redirect('/');
+      if(users[0].role == 'ADMIN'){
+        res.redirect('/admin');
+      }else{
+        res.redirect('/members');
+      }
+
     }
   });
 });
