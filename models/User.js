@@ -8,7 +8,7 @@ var User = {
     return db.query(sql,params, callback);
   },
   findByEmail: function (email,callback) {
-    var sql = 'SELECT * FROM users WHERE email = ?';
+    var sql = 'SELECT uid, email, password, name, role FROM users WHERE email = ?';
     return db.query(sql, [email], callback);
   },
   compare: function (cleartext,encrypted) {

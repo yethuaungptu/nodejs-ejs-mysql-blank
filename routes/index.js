@@ -56,7 +56,23 @@ router.post('/signin', function(req, res, next) {
       console.log(req.session.user);
       res.redirect('/');
     }
-  })
+  });
+});
+
+router.get('/login',(req,res,next)=>{
+  res.render('commons/login');
+})
+
+router.post('/login',(req,res, next)=>{
+  User.findByEmail(req.body.email, function (err,users) {
+    if(err) next(err);
+    if(users.length == 0 || !User.compare(req.body.password,users[0].password)){
+      res.json({ status: false, msg: "Email not exists or password not matched!!"});
+    }else{
+      req.session.user = {uid:users[0].uid, name: users[0].name, email: users[0].email,role : users[0].role };
+      res.json({ status : true})
+    }
+  });
 });
 
 module.exports = router;
