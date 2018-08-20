@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <style media="screen">
+    table tr td {
+          border: 1px solid black;
+        }
+
+    </style>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form name="frm" action="/admin/users/list" method="post">
+      <select name="role">
+        <option value="">All</option>
+        <option value="ADMIN">Admin</option>
+        <option value="USER">User</option>
+      </select>
+      <input type="search" name="keyword" value="<%= search.keyword || ''%>">
+      <input type="submit" name="" value="Search">
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <td>No</td>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Role</td>
+          <td>Updated</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(users.length == 0){%>
+          <tr>
+            <td colspan="5">No Data not found!!</td>
+          </tr>
+        <%}%>
+
+        <% for(var i =0; i< users.length; i++){%>
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= users[i].name %></td>
+            <td><%= users[i].email %></td>
+            <td><%= users[i].role %></td>
+            <td><%= users[i].updated %></td>
+          </tr>
+        <%}%>
+      </tbody>
+    </table>
+  </body>
+  <script type="text/javascript">
+    if('<%= search.role %>'){
+      frm.role.value = '<%= search.role%>'
+    }
+  </script>
+</html>
