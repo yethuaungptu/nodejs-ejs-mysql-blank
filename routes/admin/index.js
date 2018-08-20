@@ -11,7 +11,7 @@ router.use(function (req,res,next) {
 });
 
 router.get('/',(req,res)=>{
-  res.render('members/home',{title:'Member Home'});
+  res.render('members/home',{title:'Admin Home'});
 });
 
 module.exports = router;
