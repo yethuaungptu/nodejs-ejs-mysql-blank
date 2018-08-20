@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+  </head>
+  <body>
+    Name: <%= user.name %><p>
+    Email: <%= user.email %><p>
+    Role: <%= user.role %><p>
+    Updated: <%= user.updated %><p>
+    <a href="/admin/users/list">Go to List</a>
+  </body>
+  <script type="text/javascript">
+    console.log('<%= user.name %>');
+  </script>
+</html>

@@ -13,4 +13,14 @@ router.all('/list',(req,res)=>{
 
 });
 
+router.get('/view/:id',(req,res,next)=>{
+  User.findById(req.params.id,(err,rtn)=>{
+    if(err) throw err;
+    if(rtn.length == 0) next(new Error('User data not found!!'))
+    console.log('do',rtn.length);
+    res.render('admin/users/user-view',{title: 'Users Lists', user: rtn[0]});
+  });
+
+});
+
 module.exports = router;
