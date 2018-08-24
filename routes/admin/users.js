@@ -43,7 +43,7 @@ router.post('/modify',(req,res,next)=>{
       console.log('asaaaa',urtn);
       req.flash('info', 'Success!!');
       res.redirect('/admin/users/view/'+ rtn[0].uid);
-    })
+    });
   });
 
 });
@@ -54,7 +54,31 @@ router.post('/remove',(req,res,next)=>{
     if(err) throw err;
     req.flash('info', 'Successfully Deleted!!');
     res.redirect('/admin/users/list');
-  })
+  });
+});
+
+router.get('/add',(req,res,next)=>{
+  res.render('admin/users/user-add',{title: 'Users Add'});
+});
+
+router.post('/add',(req,res,next)=>{
+  var params = [req.body.name,req.body.email,req.body.password,req.body.role];
+  console.log(params);
+  User.findByEmail(req.body.email, function (err,rows) {
+    if(err) throw err;
+    if(rows.length > 0){
+      console.log('length');
+      req.flash('warning', 'Duplicated email!!');
+      res.redirect('/admin/users/add');
+    }else {
+      console.log('save');
+      User.add(params, function (err2,result) {
+        if(err2) throw err2;
+        console.log(result);
+        res.redirect('/admin/users/view/'+result.insertId);
+      });
+    }
+  });
 })
 
 module.exports = router;

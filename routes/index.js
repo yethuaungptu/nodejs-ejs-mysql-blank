@@ -34,8 +34,10 @@ router.post('/dupemail', function(req, res, next) {
     if(err) throw err;
     console.log(rows);
     if(rows.length > 0){
+      console.log('call');
       res.json({ status:true, msg:'Duplicated email!!'});
     }else {
+        console.log('true call');
       res.json({status:false});
     }
   });
