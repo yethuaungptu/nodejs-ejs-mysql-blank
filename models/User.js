@@ -24,7 +24,7 @@ var User = {
     var sql = 'DELETE FROM users  WHERE uid = ?';
     return db.query(sql, [uid], callback);
   },
-  find: function (params,callback){
+  find: function (params,orderby,callback){
     var p = [];
     var sql = 'SELECT uid, email, password, name, role, DATE_FORMAT(updated,\'%d/%m/%Y %H:%i\') AS updated FROM users ';
     if(params[0] != '' || params[2] != ''){
@@ -43,6 +43,7 @@ var User = {
         }
 
     }
+    sql += "ORDER BY "+orderby[0]+" "+orderby[1];
     console.log('sql:', sql);
     console.log('params', params);
     return db.query(sql,p,callback);
